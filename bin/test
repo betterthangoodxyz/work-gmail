@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Every check, the way CI would run it: syntax, then the suite (unit
+# tests, then the extension end to end in Chromium).
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+for file in src/*.js bin/build test/*.js; do node --check "$file"; done
+node -e 'JSON.parse(require("fs").readFileSync("src/manifest.json"))'
+node --test test/*.test.js

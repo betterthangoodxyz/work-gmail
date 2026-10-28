@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Work for Gmail",
+  "description": "See who you’re emailing in Work, and add them in one click.",
+  "version": "0.1.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn9It6dRez+QgTgZ2Zx3h7Py2Y6Cg/PlsPFeB7LnbTJnawjCy6i4Ggk7hjYDR7vcxtgBwd8xUwqB+gLca6RpnMSHiSC9tUIwNiJ5beaJ51yi8HRiotSmc+vYWvXrhY5ivX8OhBt6E/rWHla0WYrIPSh1xh/7paY9KJRupCPNQGdJqUdTGstuPz6yenm+auqkz2Zgnw7kU2gbQ+tiyyWoGWug4e3IJM2cwcvcGX78Zpmlo+F5ekVrdlmeBUFx1Efw2qtzvs006A3SJ0GUR5ncA1xIYBJyfmhjWkT00y+T2i9npalETCJgICsvs80GBUY9BXZChoGuTLtQWIa8BD9N3VwIDAQAB",
+  "action": { "default_title": "Work" },
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "panel.html" },
+  "permissions": ["sidePanel"],
+  "host_permissions": ["https://mail.google.com/*", "https://work.betterthangood.xyz/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["person.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
