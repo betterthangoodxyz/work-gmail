@@ -7,7 +7,7 @@
   "action": { "default_title": "Work" },
   "background": { "service_worker": "background.js" },
   "side_panel": { "default_path": "panel.html" },
-  "permissions": ["sidePanel"],
+  "permissions": ["sidePanel", "scripting"],
   "host_permissions": ["https://mail.google.com/*", "https://work.betterthangood.xyz/*"],
   "content_scripts": [
     {

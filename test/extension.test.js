@@ -93,3 +93,4 @@ test("follows Gmail to the next thread", async () => {
   await panel.waitForFunction(() => document.getElementById("work").src.includes("ben%40acme.com"));
   assert.equal(await framed("name"), "Ben Ito");
 });
+

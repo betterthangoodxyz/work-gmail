@@ -17,9 +17,11 @@ side panel. It holds no business logic and stores nothing.
   thread to thread.
 - `src/background.js` offers the panel on Gmail tabs only.
 
-Its permissions are the side panel and host access to Gmail and Work. Host
-access to Work is what lets Chrome send your Work session to the framed
-screen; without it you’d always see a sign-in prompt.
+Its permissions are the side panel, scripting, and host access to Gmail
+and Work. Host access to Work is what lets Chrome send your Work session to
+the framed screen; without it you’d always see a sign-in prompt. Scripting
+gives a Gmail tab opened before an install or update the content script
+Chrome leaves out of it, which is every new customer’s first thread.
 
 ## Developing
 
