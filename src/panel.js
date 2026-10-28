@@ -32,12 +32,16 @@ async function askTab(tabId) {
   try {
     show(await ask(tabId));
   } catch {
-    const tab = await chrome.tabs.get(tabId);
-    if (!tab.url?.startsWith(GMAIL) || tab.status !== "complete") return show(null);
-
-    await chrome.scripting.executeScript({ target: { tabId }, files: ["person.js", "content.js"] });
-    show(await ask(tabId).catch(() => null));
+    show(await injectAndAsk(tabId).catch(() => null));
   }
+}
+
+async function injectAndAsk(tabId) {
+  const tab = await chrome.tabs.get(tabId);
+  if (!tab.url?.startsWith(GMAIL) || tab.status !== "complete") return null;
+
+  await chrome.scripting.executeScript({ target: { tabId }, files: ["person.js", "content.js"] });
+  return ask(tabId);
 }
 
 chrome.runtime.onMessage.addListener(async (message, sender) => {

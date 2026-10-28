@@ -13,7 +13,7 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 10));
 
 // A Gmail tab (id 7, in window 1) that answers once its content script is
 // there, and the panel in window 1 reading it.
-function openPanel({ scriptLoaded, tab = { id: 7, url: "https://mail.google.com/mail/u/0/", status: "complete" } }) {
+function openPanel({ scriptLoaded, injectionRefused = false, tab = { id: 7, url: "https://mail.google.com/mail/u/0/", status: "complete" } }) {
   const frame = { src: "" };
   const listeners = {};
   const injected = [];
@@ -31,6 +31,7 @@ function openPanel({ scriptLoaded, tab = { id: 7, url: "https://mail.google.com/
     },
     scripting: {
       executeScript: async ({ files }) => {
+        if (injectionRefused) throw new Error("Cannot access contents of the page.");
         injected.push(...files);
         scriptLoaded = true;
       }
@@ -73,6 +74,15 @@ test("leaves a tab that isn’t Gmail, or is still loading, alone", async () => 
     assert.deepEqual(injected, [], tab.url);
     assert.equal(frame.src, "https://work.test/mail_panel");
   }
+});
+
+// Site access set to “on click”, or the tab closed mid-call: the panel
+// mustn’t keep showing the last tab’s person.
+test("shows no one when Chrome refuses the content script", async () => {
+  const { frame } = openPanel({ scriptLoaded: false, injectionRefused: true });
+  await settle();
+
+  assert.equal(frame.src, "https://work.test/mail_panel");
 });
 
 test("follows tabs in its own window only", async () => {
