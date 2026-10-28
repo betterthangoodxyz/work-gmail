@@ -1,0 +1,12 @@
+{
+  "name": "work-gmail",
+  "private": true,
+  "description": "Work beside Gmail: see who you’re emailing, and add them in one click.",
+  "scripts": {
+    "build": "bin/build",
+    "test": "bin/test"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
