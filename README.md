@@ -38,6 +38,6 @@ frame its panel. The end-to-end test needs Playwright’s Chromium
 
 `bin/build --zip` writes `work-gmail.zip` for the Chrome Web Store, without
 the development `key`, which the store refuses. The store gives the
-extension its own ID. Add it to `MailPanelsController::EXTENSION_IDS` in
+extension its own ID. Add it to `MailPanelFrame::EXTENSION_IDS` in
 Work, and deploy Work, before the listing goes live, or the panel won’t
 frame.
